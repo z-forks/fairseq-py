@@ -25,14 +25,19 @@ def main():
     parser.add_argument('--validpref', metavar='FP', default='valid', help='comma separated, valid language prefixes')
     parser.add_argument('--testpref', metavar='FP', default='test', help='comma separated, test language prefixes')
     parser.add_argument('--destdir', metavar='DIR', default='data-bin', help='destination dir')
+    # 如果训练集很大, 那么会产生很多低频词, 这些词没有意义很大可能是拼写错误
+    # 那么可以通过下面两个参数过滤的低频词, 如果值为10, 则过滤掉频率小于10的词, 这些词不会出现在dict.txt文件中
     parser.add_argument('--thresholdtgt', metavar='N', default=0, type=int,
                         help='map words appearing less than threshold times to unknown')
     parser.add_argument('--thresholdsrc', metavar='N', default=0, type=int,
                         help='map words appearing less than threshold times to unknown')
+    # 如果自己已经有准备好的字典, 可以通过下面两个参数设置
     parser.add_argument('--tgtdict', metavar='FP', help='reuse given target dictionary')
     parser.add_argument('--srcdict', metavar='FP', help='reuse given source dictionary')
+    # 限制用于训练的单词数
     parser.add_argument('--nwordstgt', metavar='N', default=-1, type=int, help='number of target words to retain')
     parser.add_argument('--nwordssrc', metavar='N', default=-1, type=int, help='number of source words to retain')
+    # 对齐文件格式: 原文+空格+译文 , 不能是句子
     parser.add_argument('--alignfile', metavar='ALIGN', default=None, help='an alignment file (optional)')
     parser.add_argument('--output-format', metavar='FORMAT', default='binary', choices=['binary', 'raw'],
                         help='output format (optional)')
