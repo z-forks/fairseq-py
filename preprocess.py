@@ -37,7 +37,9 @@ def main():
     # 限制用于训练的单词数
     parser.add_argument('--nwordstgt', metavar='N', default=-1, type=int, help='number of target words to retain')
     parser.add_argument('--nwordssrc', metavar='N', default=-1, type=int, help='number of source words to retain')
-    # 对齐文件格式: 原文+空格+译文 , 不能是句子
+    # 对齐文件格式（train文件）: 原文词id-译文词id 多个使用空格分开， 一行代表一句话（eg： 1-2 1-3 2-1 3-4 5-6 7-7）
+    # 对齐文件可以是其他工具生成的对齐文件或者人工对齐的文件
+    # https://github.com/facebookresearch/fairseq-py/blob/master/preprocess.py#L99
     parser.add_argument('--alignfile', metavar='ALIGN', default=None, help='an alignment file (optional)')
     parser.add_argument('--output-format', metavar='FORMAT', default='binary', choices=['binary', 'raw'],
                         help='output format (optional)')
